@@ -21,7 +21,9 @@ Page({
     nowTemp: '',
     nowWeather: '',
     nowWeatherBackground: "",
-    forecast:[]
+    hourlyWeather: [],
+    todayTemp: "",
+    todayDate: ""
   },
   onLoad(){
     this.getNow()
@@ -33,51 +35,66 @@ Page({
   },
 
   getNow(callback){
-    console.log("Hello World")
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now', //接口地址
       data: {
-        city: '乌鲁木齐'
+        city: '广州市'
       },
       success: res=> {
-        console.log(res.data)
+        //console.log(res.data)
         let result = res.data.result
-        let temp = result.now.temp
-        let weather = result.now.weather
-        //console.log(temp, weather)
-        this.setData({
-          nowTemp: temp +'°',
-          nowWeather: weatherMap[weather],
-          nowWeatherBackground: '/images/'+weather+'-bg.png'
-          
-        })
-        wx.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: weatherColorMap[weather],
-        })
-
-        //set forecast
-        let forecast = []
-        let nowHour = new Date().getHours()
-        for (let i = 0; i < 24; i += 3){
-          forecast.push({
-            time: (i + nowHour) % 24 + "时",
-            iconPath:'/images/sunny-icon.png',
-            temp: "12°"
-          })
-        }
-        forecast[0].time = '现在'
-        this.setData({ 
-          forecast:forecast
-        })
-        console.log(this.data.nowWeatherBackground)
+        this.setNow(result)
+        this.setHourlyWeather(result)
+        this.setToday(result)
+        //console.log(this.data.nowWeatherBackground)
       },
       complete: () => {
         callback && callback()
       }
+
       
     })
+  },
+  setNow(result){
+  let temp = result.now.temp
+  let weather = result.now.weather
+  //console.log(temp, weather)
+  this.setData({
+    nowTemp: temp + '°',
+    nowWeather: weatherMap[weather],
+          
+    nowWeatherBackground: '/images/' + weather + '-bg.png'
+
+  })
+  wx.setNavigationBarColor({
+    frontColor: '#000000',
+    backgroundColor: weatherColorMap[weather],
+  })
+},
+  setHourlyWeather(result){
+  let forecast = result.forecast
+  let hourlyWeather = []
+  let nowHour = new Date().getHours()
+    for (let i = 0; i < 8; i += 1) {
+    //console.log(forecast[i])
+    hourlyWeather.push({
+      time: (i * 3 + nowHour) % 24 + "时",
+      iconPath: '/images/' + forecast[i].weather + '-icon.png',
+        temp: forecast[i].temp + '°'
+    })
   }
+  hourlyWeather[0].time = '现在'
+  this.setData({
+    hourlyWeather: hourlyWeather
+  })        
+},
+setToday(result){
+  let date = new Date()
+  this.setData({
+      todayTemp: `${result.today.minTemp}° - ${result.today.maxTemp}°`,
+      todayDate: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 今天`
+  })
+}
 
 
 })
