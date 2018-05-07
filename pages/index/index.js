@@ -5,7 +5,7 @@ const titleMap = {
   'yl': '娱乐',
   'js': '军事',
   'ty': '体育',
-  'other': '其他',
+  'other': '其他'
 }
 Page({
   data: {
@@ -65,16 +65,18 @@ Page({
     } 
   },
   //点击新闻类型触发
-  onTapNewstype(e) {
-    wx.showToast()
-    //this.setNews()
-    
-    console.log("text:" + e.currentTarget.text)
+  onTapNewstype(res) {
+    console.log(res)
+    console.log(res.currentTarget.dataset.key)
+    this.setData({
+      type: res.currentTarget.dataset.key
+    })
+    this.getNews()
   },
   //点击新闻详细信息
   onTapNewsdetail() {
     wx.navigateTo({
-      url: '/pages/detail/detail',
+      url: '/pages/detail/detail'
     })
   },
   //下拉刷新
