@@ -6,11 +6,12 @@
   </view>
 </scroll-view>
 
-<view class='newsmsg-item' wx:for="{{shortNews}}" bindtap='onTapNewsdetail'>
+<view class='newsmsg-item' wx:for="{{shortNews}}" data-id='{{item.id}}' data-image='{{item.firstImage}}' bindtap='onTapNewsdetail'>
   <view class="newsmsg-wrapper">
     <view class="newstitle">{{item.title}}</view>
     <view class="newssource">{{item.source}}</view>
     <view class="newsdate">{{item.date}}</view>
   </view>
   <image class="newsfirstImage" src="{{item.firstImage}}"></image>
+  
 </view>

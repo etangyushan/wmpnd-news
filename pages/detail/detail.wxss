@@ -1,1 +1,45 @@
-/* pages/detail/detail.wxss */
+.detail-item{
+  padding-top: 20rpx;
+  padding-bottom: 50rpx;
+
+}
+
+.detail-wrapper{
+  width: 720rpx;
+
+}
+
+.detail-title{
+  opacity: 0.8;
+  font-size: 70rpx;
+
+}
+
+.detail-date{
+  opacity: 0.6;
+  font-size: 35rpx;
+  line-height: 56rpx;
+}
+
+.detail-source{
+  opacity: 0.6;
+  font-size: 35rpx;
+  line-height: 56rpx;
+}
+
+.detail-readCount{
+  opacity: 0.6;
+  font-size: 35rpx;
+  line-height: 56rpx;
+}
+
+.detail-image{
+  width: 100%rpx;
+  height: 100%rpx;
+}
+
+.detail-content{
+  opacity: 0.8;
+  font-size: 45rpx;
+  line-height: 56rpx;
+}

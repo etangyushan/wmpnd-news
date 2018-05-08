@@ -12,7 +12,8 @@ Page({
     subjectList: [],
     shortNews: [],
     titleMap: titleMap,
-    type:''
+    type:'',
+    id:''
   },
   //启动时加载
   onLoad(){
@@ -48,11 +49,13 @@ Page({
   //设置简讯
   setNews(result){
     console.log('length:' + result.length)
+    console.log(result)
     let shortNews = []
     for (let i = 0; i < result.length; i +=1){
       //console.log(result[i].title)
 
       shortNews.push({
+        id: result[i].id,
         title: result[i].title,
         date: result[i].date,
         source: result[i].source,
@@ -66,17 +69,22 @@ Page({
   },
   //点击新闻类型触发
   onTapNewstype(res) {
-    console.log(res)
-    console.log(res.currentTarget.dataset.key)
+    // console.log(res)
+    // console.log(res.currentTarget.dataset.key)
     this.setData({
       type: res.currentTarget.dataset.key
+      
     })
     this.getNews()
   },
   //点击新闻详细信息
-  onTapNewsdetail() {
+  onTapNewsdetail(res) {
+    console.log('============')
+    console.log(res)
+    console.log(res.currentTarget.dataset.id)
+
     wx.navigateTo({
-      url: '/pages/detail/detail'
+      url: '/pages/detail/detail?id=' + res.currentTarget.dataset.id + '&image=' + res.currentTarget.dataset.image
     })
   },
   //下拉刷新
