@@ -1,17 +1,24 @@
 <scroll-view scroll-x>
   <view class="subject-list">
     <view class='subject-item' wx:for="{{titleMap}}" wx:for-index="key" wx:for-item='value'>
-      <view  data-key='{{key}}' bindtap='onTapNewstype'>{{value}}</view>
+
+        <view  data-key='{{key}}' bindtap='onTapNewstype' style="color:{{color}}">{{value}}</view>
+      
     </view>
   </view>
 </scroll-view>
 
 <view class='newsmsg-item' wx:for="{{shortNews}}" data-id='{{item.id}}' data-image='{{item.firstImage}}' bindtap='onTapNewsdetail'>
   <view class="newsmsg-wrapper">
-    <view class="newstitle">{{item.title}}</view>
-    <view class="newssource">{{item.source}}</view>
-    <view class="newsdate">{{item.date}}</view>
+    <view class="newsmsg-title">{{item.title}}</view>
+    <view class="newsmsg-source">{{item.source}}</view>
+    <view class="newsmsg-date">{{item.date}}</view>
   </view>
-  <image class="newsfirstImage" src="{{item.firstImage}}"></image>
-  
+
+  <view wx:if="{{item.firstImage == null}}" >
+    <image class="newsmsg-firstImage" src="{{defFirstImage}}"></image>
+  </view>
+  <view wx:if="{{item.firstImage != null}}">
+    <image class="newsmsg-firstImage" src="{{item.firstImage}}"></image>
+  </view>
 </view>

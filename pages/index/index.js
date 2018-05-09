@@ -13,7 +13,10 @@ Page({
     shortNews: [],
     titleMap: titleMap,
     type:'',
-    id:''
+    id:'',
+    formatdate:'',
+    defFirstImage: '/images/sunny-bg.png', //默认图片
+ 
   },
   //启动时加载
   onLoad(){
@@ -30,7 +33,7 @@ Page({
         type: this.data.type
       },
       success: res => {
-        console.log(res.data)
+        // console.log(res.data)
         let result = res.data.result
         console.log(result[0].title)
         this.setNews(result)
@@ -46,18 +49,34 @@ Page({
       backgroundColor: '#cbeefd'
     })  
   },
+  //格式化时间
+  getFormatTime(intime){
+    let tmp = Date.parse(intime)
+    //console.log(tmp)
+    let date = new Date(tmp)
+    //console.log(date.getFullYear())
+    let newtime = ''
+    newtime = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}` 
+
+    this.setData({
+      formatdate: newtime
+    })
+  },
   //设置简讯
   setNews(result){
     console.log('length:' + result.length)
-    console.log(result)
+    console.log(result[0].date)
+    console.log(typeof result[0].date);
     let shortNews = []
+    // this.getFormatTime(result[0].date)
+    // console.log(this.data.formatdate);
     for (let i = 0; i < result.length; i +=1){
       //console.log(result[i].title)
-
+      this.getFormatTime(result[i].date)
       shortNews.push({
         id: result[i].id,
         title: result[i].title,
-        date: result[i].date,
+        date: this.data.formatdate,
         source: result[i].source,
         firstImage: result[i].firstImage
       })
@@ -72,16 +91,16 @@ Page({
     // console.log(res)
     // console.log(res.currentTarget.dataset.key)
     this.setData({
-      type: res.currentTarget.dataset.key
-      
+      type: res.currentTarget.dataset.key,
+ 
     })
     this.getNews()
   },
   //点击新闻详细信息
   onTapNewsdetail(res) {
-    console.log('============')
-    console.log(res)
-    console.log(res.currentTarget.dataset.id)
+    // console.log('============')
+    // console.log(res)
+    // console.log(res.currentTarget.dataset.id)
 
     wx.navigateTo({
       url: '/pages/detail/detail?id=' + res.currentTarget.dataset.id + '&image=' + res.currentTarget.dataset.image

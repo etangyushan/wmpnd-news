@@ -2,14 +2,13 @@
 Page({
   date: {
     id: '', //新闻ID
-    image:'',//默认图片
-    detailNews:[]
+    detailNews:[],
+    newsContent:[]
   },
   onLoad(options) {
     console.log(options)
     this.setData({
       id: options.id,
-      image:options.image
     })
     this.getDetailNews()
   },
@@ -26,6 +25,7 @@ Page({
       },
       success: res => {
         let result = res.data.result
+        console.log(res)
         this.setDetailNews(result)
       },
       complete: () => {
@@ -36,7 +36,7 @@ Page({
   setDetailNews(result) {
     console.log(result)
     let detailNews = []
-    let content = []
+
     detailNews.push({
       title:result.title,
       date:result.date,
@@ -49,5 +49,32 @@ Page({
     this.setData({
       detailNews: detailNews
     })
+
+    let newsContent = []
+    let content = result.content
+    let tmpdata ='';
+    console.log(content.length);
+    for (let i = 0; i < content.length; i += 1) {
+      //三种类型：image, p, strong
+      if (content[i].type == 'image') {
+        tmpdata = content[i].src
+      } else if (content[i].type == 'p') {
+        tmpdata = content[i].text
+      } else if (content[i].type == 'strong'){
+        tmpdata = content[i].text
+      }
+      console.log(content[i].type);
+      console.log(tmpdata);
+      console.log(content[i].id);
+      newsContent.push({
+        type: content[i].type,
+        data: tmpdata,
+        id: content[i].id
+      })
+
+      this.setData({
+        newsContent: newsContent
+      })
+    }
   }
 })

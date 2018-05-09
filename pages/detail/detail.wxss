@@ -11,7 +11,7 @@
 
 .detail-title{
   opacity: 0.8;
-  font-size: 70rpx;
+  font-size: 60rpx;
 
 }
 
@@ -38,8 +38,20 @@
   height: 100%rpx;
 }
 
-.detail-content{
+ 
+.conten-image{
+  width: 100%rpx;
+  height: 100%rpx;
+  padding-top: 20rpx;
+  padding-bottom: 50rpx;
+}
+.conten-page{
   opacity: 0.8;
   font-size: 45rpx;
   line-height: 56rpx;
+}
+.conten-strong{
+  opacity: 0.8;
+  font-size: 60rpx;
+  line-height: 80rpx;
 }

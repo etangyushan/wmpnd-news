@@ -4,13 +4,18 @@
     <view class="detail-date">{{item.date}}</view>
     <view class="detail-source">{{item.source}}</view>
     <view class="detail-readCount">阅读 {{item.readCount}}</view>
-  <view wx:if="{{item.firstImage != null}}"class="location-tips">
-    <image class="detail-image" src="{{item.firstImage}}"></image>
   </view>
-  <view wx:if="{{item.firstImage == null}}"class="location-tips">
-    <image class="detail-image" src="{{image}}"></image>
+
+  <view class="detail-content" wx:for="{{newsContent}}" >
+    <view wx:if="{{item.type == 'image'}}">
+      <image class="conten-image" src="{{item.data}}"></image>
+    </view>
+    <view wx:if="{{item.type == 'p'}}" class='conten-page'>
+      {{item.data}}
+    </view>
+    <view wx:if="{{item.type == 'strong'}}" class='conten-strong'>
+      {{item.data}}
+    </view>
   </view>
-    <view class="detail-content" wx:for="{{item.content}}" wx:for-index="key" wx:for-item='value' >{{value.text}}</view>
-    
-  </view>
+  
 </view>

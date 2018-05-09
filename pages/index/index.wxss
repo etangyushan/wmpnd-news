@@ -30,26 +30,26 @@
   padding-right: 60rpx;
 }
 
-.newstitle{
+.newsmsg-title{
   opacity: 0.8;
   font-size: 35rpx;
   line-height: 56rpx;
 }
 
-.newsdate{
+.newsmsg-date{
   opacity: 0.6;
   font-size: 25rpx;
   line-height: 56rpx;
 }
 
-.newssource{
+.newsmsg-source{
   opacity: 0.6;
   font-size: 25rpx;
   line-height: 56rpx;
 }
 
 
-.newsfirstImage{
+.newsmsg-firstImage{
   width: 300rpx;
   height: 200rpx;
 }
